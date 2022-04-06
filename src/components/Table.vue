@@ -12,34 +12,25 @@ export default {
   <table class="table table-compact w-full">
     <thead>
       <tr>
-        <th></th> 
-        <th>Name</th> 
-        <th>Job</th> 
-        <th>company</th> 
-        <th>location</th> 
-        <th>Last Login</th> 
-        <th>Favorite Color</th>
+        <th>Mo</th> 
+        <th>Tu</th> 
+        <th>We</th> 
+        <th>Th</th> 
+        <th>Fr</th> 
+        <th>Sa</th> 
+        <th>Su</th>
       </tr>
     </thead> 
     <tbody>
-      <tr>
-        <!-- <td>Quality Control Specialist</td>  -->
-        <td v-for="index in 30" :key="index">
+      <tr v-for="index in 5" :key="index">
+        <td v-for="index in 7" :key="index">
             <Cell/>
         </td>
 
       </tr>
     </tbody> 
     <tfoot>
-      <tr>
-        <th></th> 
-        <th>Name</th> 
-        <th>Job</th> 
-        <th>company</th> 
-        <th>location</th> 
-        <th>Last Login</th> 
-        <th>Favorite Color</th>
-      </tr>
+      <tr> </tr>
     </tfoot>
   </table>
 </div>
