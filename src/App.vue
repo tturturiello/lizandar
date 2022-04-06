@@ -1,3 +1,14 @@
+<script>
+import Table from './components/Table.vue'
+import Cell from './components/Cell.vue'
+
+export default {
+    components: { Table, Cell }
+}
+</script>
+
+
 <template>
-  <button class="btn">Hello daisyui</button>
+  <Table/>
+  <!-- <Cell/> -->
 </template>
