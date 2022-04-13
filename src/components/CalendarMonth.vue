@@ -14,32 +14,19 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import dayjs from "dayjs";
 import CalendarDateIndicator from "./CalendarDateIndicator.vue";
 import CalendarDateSelector from "./CalendarDateSelector.vue";
 
-export default {
-  components: {
-    CalendarDateIndicator,
-    CalendarDateSelector
-},
+let selectedDate = ref( dayjs() )
+let today = ref( dayjs().format("YYYY-MM-DD") )
 
-  data() {
-    return {
-      selectedDate: dayjs(),
-      today: dayjs().format("YYYY-MM-DD")
-    };
-  },
-
-  methods: {
-    selectDate(newSelectedDate) {
-      this.selectedDate = newSelectedDate;
-    }
-  }
-};
+function selectDate(newSelectedDate) {
+  selectedDate.value = newSelectedDate;
+}
 </script>
-
 
 <style>
 @import '../styles/calendarMonth.css';
