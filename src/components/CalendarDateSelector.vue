@@ -39,12 +39,10 @@ function selectNext() {
   let newSelectedDate = dayjs(props.selectedDate).add(1, 'month')
   emit('dateSelected', newSelectedDate)
 }
-
 </script>
 
 
 <style scoped>
-
 .calendar-date-selector {
   display: flex;
   justify-content: space-between;
