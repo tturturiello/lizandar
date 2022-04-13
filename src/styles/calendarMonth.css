@@ -1,8 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.calendar-month {
+  position: relative;
+  background-color: var(--grey-200);
+  border: solid 1px var(--grey-300);
+}
 
-/* #app {
+#app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,4 +36,4 @@ li {
   justify-content: space-between;
   background-color: #fff;
   padding: 10px;
-} */
+}

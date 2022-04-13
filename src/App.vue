@@ -1,14 +1,17 @@
+<template>
+  <div id="app">
+    <CalendarMonth/>
+  </div>
+</template>
+
 <script>
-import Table from './components/Table.vue'
-import Cell from './components/Cell.vue'
+import CalendarMonth from "./components/CalendarMonth.vue";
 
 export default {
-    components: { Table, Cell }
+  name: "App",
+
+  components: {
+    CalendarMonth
 }
+};
 </script>
-
-
-<template>
-  <Table/>
-  <!-- <Cell/> -->
-</template>
