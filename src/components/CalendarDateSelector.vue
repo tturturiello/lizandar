@@ -6,42 +6,43 @@
   </div>
 </template>
 
-<script>
-import dayjs from "dayjs";
+<script setup>
+import dayjs from 'dayjs';
+import { ref } from 'vue';
 
-export default {
-  name: "CalendarDateSelector",
+const name = ref('CalendarDateSelector')
+const emit = defineEmits(['dateSelected'])
 
-  props: {
-    currentDate: {
-      type: String,
-      required: true
-    },
-
-    selectedDate: {
-      type: Object,
-      required: true
-    }
+const props = defineProps({
+  currentDate: {
+    type: String,
+    required: true
   },
 
-  methods: {
-    selectPrevious() {
-      let newSelectedDate = dayjs(this.selectedDate).subtract(1, "month");
-      this.$emit("dateSelected", newSelectedDate);
-    },
-
-    selectCurrent() {
-      let newSelectedDate = dayjs(this.currentDate);
-      this.$emit("dateSelected", newSelectedDate);
-    },
-
-    selectNext() {
-      let newSelectedDate = dayjs(this.selectedDate).add(1, "month");
-      this.$emit("dateSelected", newSelectedDate);
-    }
+  selectedDate: {
+    type: Object,
+    required: true
   }
-};
+})
+
+function selectPrevious() {
+  let newSelectedDate = dayjs(props.selectedDate).subtract(1, 'month')
+  emit('dateSelected', newSelectedDate)
+}
+
+function selectCurrent() {
+  let newSelectedDate = dayjs(props.currentDate)
+  emit('dateSelected', newSelectedDate)
+}
+
+function selectNext() {
+  let newSelectedDate = dayjs(props.selectedDate).add(1, 'month')
+  emit('dateSelected', newSelectedDate)
+}
+
 </script>
+
+
 
 <style scoped>
 .calendar-date-selector {

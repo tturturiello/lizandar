@@ -1,22 +1,18 @@
 <template>
-  <div class="calendar-date-indicator">{{ selectedMonth }}</div>
+  <div class="calendar-date-indicator">{{ selectedMonth() }}</div>
 </template>
 
-<script>
-export default {
-  props: {
+<script setup>
+const props = defineProps({
     selectedDate: {
       type: Object,
       required: true
     }
-  },
+})
 
-  computed: {
-    selectedMonth() {
-      return this.selectedDate.format("MMMM YYYY");
-    }
-  }
-};
+function selectedMonth() {
+  return props.selectedDate.format("MMMM YYYY");
+}
 </script>
 
 
