@@ -17,14 +17,14 @@
 <script setup>
 import { ref } from 'vue'
 import dayjs from "dayjs";
-import CalendarDateIndicator from "./CalendarDateIndicator.vue";
-import CalendarDateSelector from "./CalendarDateSelector.vue";
+import CalendarDateIndicator from "./CalendarDateIndicator.vue"
+import CalendarDateSelector from "./CalendarDateSelector.vue"
 
 let selectedDate = ref( dayjs() )
 let today = ref( dayjs().format("YYYY-MM-DD") )
 
 function selectDate(newSelectedDate) {
-  selectedDate.value = newSelectedDate;
+  selectedDate.value = newSelectedDate
 }
 </script>
 

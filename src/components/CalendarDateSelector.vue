@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import dayjs from 'dayjs';
-import { ref } from 'vue';
+import dayjs from 'dayjs'
+import { ref } from 'vue'
 
 const name = ref('CalendarDateSelector')
 const emit = defineEmits(['dateSelected'])
@@ -39,10 +39,7 @@ function selectNext() {
   let newSelectedDate = dayjs(props.selectedDate).add(1, 'month')
   emit('dateSelected', newSelectedDate)
 }
-
 </script>
-
-
 
 <style scoped>
 .calendar-date-selector {

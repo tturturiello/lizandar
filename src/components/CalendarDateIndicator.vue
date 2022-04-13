@@ -4,14 +4,14 @@
 
 <script setup>
 const props = defineProps({
+  type: Object,
     selectedDate: {
-      type: Object,
       required: true
     }
 })
 
 function selectedMonth() {
-  return props.selectedDate.format("MMMM YYYY");
+  return props.selectedDate.format("MMMM YYYY")
 }
 </script>
 
