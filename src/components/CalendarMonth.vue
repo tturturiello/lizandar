@@ -21,10 +21,15 @@
 <script setup>
 import { computed, ref } from 'vue'
 import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import weekOfYear from "dayjs/plugin/weekOfYear";
 import CalendarDateIndicator from "./CalendarDateIndicator.vue"
 import CalendarDateSelector from "./CalendarDateSelector.vue"
 import CalendarWeekdays from './CalendarWeekdays.vue';
 import CalendarMonthDayItem from './CalendarMonthDayItem.vue';
+
+dayjs.extend(weekday);
+dayjs.extend(weekOfYear);
 
 let selectedDate = ref( dayjs() )
 let today = ref( dayjs().format("YYYY-MM-DD") )
@@ -69,6 +74,42 @@ const days = ([
 function selectDate(newSelectedDate) {
   selectedDate.value = newSelectedDate
 }
+
+function numberOfDaysInMonth() {
+  return dayjs(this.selectDate).daysInMonth();
+}
+
+function currentMonthDays() {
+  return [...Array(this.numberOfDaysInMonth)].map((day, index) => {
+    return {
+      date: dayjs(`${this.year}-${this.month}-${index + 1}`).format("YYYY-MM_DD"),
+      isCurrentMonth: true
+    };
+  });
+}
+
+function getToday() {
+  return dayjs().format("YYYY-MM-DD");
+}
+
+function getMonth() {
+  return Number(this.selectDate.format("M"));
+}
+
+function getYear() {
+  return Number(this.selectDate.format("YYYY"));
+}
+
+function getWeekday(date) {
+  return dayjs(date).weekday();
+}
+
+// TODO return days as a single array
+// function days() {
+//   return [
+//   ]
+// }
+
 </script>
 
 <style>
