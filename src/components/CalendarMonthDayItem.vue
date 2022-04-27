@@ -7,13 +7,20 @@
     }"
   >
     <span>{{ label() }}</span>
+          <div v-for="event in events.get(day.date)" :key="event.key">
+            <EventComponent :title="event.title" :time-start="event.timeStart" :time-end="event.timeEnd"/>
+          </div>
   </li>
 </template>
 
 <script setup>
 import dayjs from "dayjs";
+import EventComponent from "./EventComponent.vue";
 
 const props = defineProps({
+  events: {
+    type: Map
+  },
   day: {
       type: Object,
       required: true

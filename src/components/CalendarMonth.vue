@@ -12,16 +12,8 @@
       />
     </div>
     <CalendarWeekdays/>
-    <ol class="days-grid">
-      <CalendarMonthDayItem v-for="day in days" :key="day.date" :day="day" :is-today="day.date === today" />
-      <ul class="menu bg-base-100 w-56">
-        <li>
-          <div v-for="event in events.get(day.date)" :key="event.key">
-            <Event :title="event.title" :time-start="event.timeStart" :time-end="event.timeEnd"/>
-          </div>
-      </li>
-      </ul>
-      
+    <ol class="days-grid ">
+      <CalendarMonthDayItem v-for="day in days" :events="events" :key="day.date" :day="day" :is-today="day.date === today" ></CalendarMonthDayItem>
     </ol>
   </div>
 </template>
@@ -36,12 +28,13 @@ import CalendarDateSelector from "./CalendarDateSelector.vue"
 import CalendarWeekdays from './CalendarWeekdays.vue';
 import CalendarMonthDayItem from './CalendarMonthDayItem.vue';
 import { data } from 'browserslist';
+import EventComponent from './EventComponent.vue';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
 const events = new Map();
-events.set("29.04.2022", [{id: "asdf", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"}]);
+events.set("2022-04-29", [{id: "asdf", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"}]);
 events.set("30.04.2022", [{id: "asdf2", title: "title2", description: "desc2", date: "29.04.2022", timeStart: "12:23", timeEnd: "14:23", calendar: "Job"}]);
 
 let selectedDate = reactive ({
@@ -74,7 +67,7 @@ function currentMonthDays() {
   return [...Array(numberOfDaysInMonth())].map((_, index) => {
     return {
       date: dayjs(`${year()}-${month()}-${index + 1}`).format("YYYY-MM-DD"),
-      event: getEvent(dayjs(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`).format("DD.MM.YYYY")),
+      event: getEvent(dayjs(`${index + 1}.${month()}.${year()}`).format("DD.MM.YYYY")),
       isCurrentMonth: true
     };
   });
