@@ -40,6 +40,10 @@ import { data } from 'browserslist';
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
+const events = new Map();
+events.set("29.04.2022", [{id: "asdf", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"}]);
+events.set("30.04.2022", [{id: "asdf2", title: "title2", description: "desc2", date: "29.04.2022", timeStart: "12:23", timeEnd: "14:23", calendar: "Job"}]);
+
 let selectedDate = reactive ({
   value: dayjs()
 });
@@ -70,9 +74,14 @@ function currentMonthDays() {
   return [...Array(numberOfDaysInMonth())].map((_, index) => {
     return {
       date: dayjs(`${year()}-${month()}-${index + 1}`).format("YYYY-MM-DD"),
+      event: getEvent(dayjs(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`).format("DD.MM.YYYY")),
       isCurrentMonth: true
     };
   });
+}
+
+function getEvent(key) {
+  return events.get(key)
 }
 
 function previousMonthDays() {
@@ -103,6 +112,7 @@ function nextMonthDays() {
       };
     });
   }
+
 
 function getWeekday(date) {
   return dayjs(date).weekday();
