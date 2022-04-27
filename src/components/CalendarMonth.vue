@@ -14,6 +14,14 @@
     <CalendarWeekdays/>
     <ol class="days-grid">
       <CalendarMonthDayItem v-for="day in days" :key="day.date" :day="day" :is-today="day.date === today" />
+      <ul class="menu bg-base-100 w-56">
+        <li>
+          <div v-for="event in events.get(day.date)" :key="event.key">
+            <Event :title="event.title" :time-start="event.timeStart" :time-end="event.timeEnd"/>
+          </div>
+      </li>
+      </ul>
+      
     </ol>
   </div>
 </template>
@@ -103,6 +111,14 @@ function getWeekday(date) {
 function selectDate(newSelectedDate) {
   selectedDate.value = newSelectedDate
 }
+
+/*{"id":"05f1c9b9-b385-4203-8ff8-8dfd1dd6561e",
+"title":"Id illo odit aspernatur.",
+"description":"Deleniti autem aut placeat fugiat sit voluptatum numquam. Consequuntur nihil repudiandae sit impedit est. Dolores dolorum consequatur sit error. Beatae sed pariatur natus dolore.",
+"date":"15.02.2022",
+"timeStart":"11:23",
+"timeEnd":"13:15",
+"calendar":"Sport"}*/
 
 </script>
 
