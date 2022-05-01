@@ -4,7 +4,6 @@ export const useEventsStore = defineStore('events', {
   state: () => {
     return { 
         events: new Map(),
-        cnt: 0,
     }
   },
   actions: {        

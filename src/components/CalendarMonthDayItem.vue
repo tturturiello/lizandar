@@ -10,7 +10,6 @@
       <div>
         <LabelDay 
           :label="label()"/>
-        {{ store.cnt }}
       </div>
       <div v-for="event in store.events.get(day.date)" :key="event.key">
         <EventComponent 
