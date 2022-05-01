@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar-month drawer">
+  <div class="calendar-month">
     <div class="calendar-month-header">
       <CalendarDateIndicator
         :selected-date="formatSelectedDate()"
@@ -8,21 +8,23 @@
       <CalendarDateSelector
         :current-date="today"
         :selected-date="selectedDate.value"
-        :view-mode="'month'"
+        :view-mode="'week'"
         @dateSelected="selectDate"
       />
     </div>
     <CalendarWeekdays/>
     <ol class="days-grid">
-          <!-- class="drawer-content" -->
-      <CalendarMonthDayItem 
-          v-on:dayclicked="() => ''"
-          v-for="day in days" 
-          :events="events" 
-          :key="day.date" 
-          :day="day" 
-          :is-today="day.date === today">
-      </CalendarMonthDayItem>
+    <!-- <div v-for="week in 4" :key="week"> -->
+        
+        <!-- v-for="day in days"  -->
+    <CalendarWeekDayItem 
+        v-for="day in daysPerWeek[weekIndex()]" 
+        :events="events" 
+        :key="day.date" 
+        :day="day" 
+        :is-today="day.date === today">
+    </CalendarWeekDayItem>
+    <!-- </div> -->
     </ol>
   </div>
 </template>
@@ -35,9 +37,9 @@ import weekOfYear from "dayjs/plugin/weekOfYear";
 import CalendarDateIndicator from "./CalendarDateIndicator.vue"
 import CalendarDateSelector from "./CalendarDateSelector.vue"
 import CalendarWeekdays from './CalendarWeekdays.vue';
-import CalendarMonthDayItem from './CalendarMonthDayItem.vue';
-import { data } from 'browserslist';
+import CalendarWeekDayItem from './CalendarWeekDayItem.vue';
 import EventComponent from './EventComponent.vue';
+import { data } from 'browserslist';
 import { useEventsStore } from "../stores/events";
 
 dayjs.extend(weekday);
@@ -48,6 +50,7 @@ const eventsStore = ref(useEventsStore)
 
 onMounted(() => {
   fetchEvents()
+  // events = eventsStore.value()
 })
 
 let selectedDate = reactive ({
@@ -56,12 +59,34 @@ let selectedDate = reactive ({
 
 let today = ref( dayjs().format("YYYY-MM-DD") )
 
+// let weekIndex = ref(selectedDate.value.week() % 4)
+
+// console.log("WEEK", weekIndex)
+
+// const x = (() => {
+//     console.log("WEEK", selectedDate.value.week() % 4)
+//     console.log("DAYS", daysPerWeek[weekIndex()])
+// })
+
 const days = computed(() => {
+    // console.log("WEEK", selectedDate.value.week() % 4)
+    console.log("DAYS", daysPerWeek[weekIndex()])
   return [
-      ...previousMonthDays(),
       ...currentMonthDays(),
-      ...nextMonthDays()
     ];
+})
+
+function weekIndex() {
+    return selectedDate.value.week() % 4
+}
+
+const daysPerWeek = computed(() => {
+  return [
+      days.value.filter((_, index) => index < 7),
+      days.value.filter((_, index) => index >= 7 && index < 14),
+      days.value.filter((_, index) => index >= 14 && index < 21),
+      days.value.filter((_, index) => index >= 21),
+  ]
 })
 
 function fetchEvents() {
@@ -74,14 +99,11 @@ function fetchEvents() {
     {id: "ssasf1", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"},
     {id: "ssasf2", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"},
     ]);
-  //events.set("2022-04-30", [{id: "asdf", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"}]);
-  //events.get("2022-04-30").push({id: "asdfasl", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"})
+}
 
-  const URL = "https://supsi-events.herokuapp.com/bff/events"
-  //fetch(URL)
-  // .then(response => response.json())
-  // .then(json => json.forEach(e => events.set(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`, e)))
-  // .catch(err => console.log(`Error fetching events: \r\n ${err}`))
+function allLogs() {
+    console.log("WEEK", selectedDate.value.week() % 4)
+    console.log("DAYS", daysPerWeek[weekIndex()])
 }
 
 function month() {
@@ -136,8 +158,23 @@ function nextMonthDays() {
         date: dayjs(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`).format("YYYY-MM-DD"),
         isCurrentMonth: false
       };
-    });
-  }
+  });
+}
+
+// function weekDays() {
+//     const lastDayOfTheMonthWeekday = getWeekday(`${year()}-${month()}-${currentMonthDays().length}`);
+//     const nextMonth = dayjs(`${year()}-${month()}-01`).add(1, "month");
+//     const visibleNumberOfDaysFromNextMonth = lastDayOfTheMonthWeekday ? 7 - lastDayOfTheMonthWeekday : lastDayOfTheMonthWeekday;
+
+//     const lastDayOfTheWeekday = getWeekday(`${year()}-${month()}-${currentMonthDays().length}`);
+
+//     return [...Array(visibleNumberOfDaysFromNextMonth)].map((_, index) => {
+//       return {
+//         date: dayjs(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`).format("YYYY-MM-DD"),
+//         isCurrentMonth: false
+//       };
+//     }).filter();
+  // }
 
 
 function getWeekday(date) {
@@ -149,8 +186,16 @@ function selectDate(newSelectedDate) {
 }
 
 function formatSelectedDate() {
-  return selectedDate.value.format("MMMM YYYY")
+  return selectedDate.value.format("DD MMMM YYYY")
 }
+
+//function incrementWeekIndex() {
+//    weekIndex = (weekIndex + 1) % 4
+//}
+//
+//function derementWeekIndex() {
+//    weekIndex = (weekIndex - 1) % 4
+//}
 
 /*{"id":"05f1c9b9-b385-4203-8ff8-8dfd1dd6561e",
 "title":"Id illo odit aspernatur.",
@@ -163,6 +208,5 @@ function formatSelectedDate() {
 </script>
 
 <style>
-@import '../styles/calendarMonth.css';
+@import '../styles/calendarWeek.css';
 </style>
-

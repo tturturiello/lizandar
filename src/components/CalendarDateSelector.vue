@@ -14,6 +14,11 @@ const name = ref('CalendarDateSelector')
 const emit = defineEmits(['dateSelected'])
 
 const props = defineProps({
+  viewMode: {
+    type: String,
+    required: true,
+    default: 'month'
+  },
   currentDate: {
     type: String,
     required: true
@@ -26,7 +31,7 @@ const props = defineProps({
 })
 
 function selectPrevious() {
-  let newSelectedDate = dayjs(props.selectedDate).subtract(1, 'month')
+  let newSelectedDate = dayjs(props.selectedDate).subtract(1, props.viewMode)
   emit('dateSelected', newSelectedDate)
 }
 
@@ -36,7 +41,7 @@ function selectCurrent() {
 }
 
 function selectNext() {
-  let newSelectedDate = dayjs(props.selectedDate).add(1, 'month')
+  let newSelectedDate = dayjs(props.selectedDate).add(1, props.viewMode)
   emit('dateSelected', newSelectedDate)
 }
 </script>

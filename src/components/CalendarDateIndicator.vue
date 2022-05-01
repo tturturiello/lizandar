@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar-date-indicator">{{ selectedMonth() }}</div>
+  <div class="calendar-date-indicator">{{ selected() }}</div>
 </template>
 
 <script setup>
@@ -10,8 +10,8 @@ const props = defineProps({
     }
 })
 
-function selectedMonth() {
-  return props.selectedDate.format("MMMM YYYY")
+function selected() {
+  return props.selectedDate
 }
 </script>
 
