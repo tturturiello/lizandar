@@ -7,8 +7,11 @@ export const useEventsStore = defineStore('events', {
     }
   },
   actions: {        
-    find(str) {
-      return [...this.events.values()].flatMap(e => e).filter(e => e.title.includes(str) || e.description.includes(str));
+    find(query) {
+      const str = query.toLowerCase()
+      return [...this.events.values()]
+        .flatMap(e => e)
+        .filter(e => e.title.toLowerCase().includes(str) || e.description.toLowerCase().includes(str));
     },
     addEvent(event) {
       this.events.get(event.date).push(event)
