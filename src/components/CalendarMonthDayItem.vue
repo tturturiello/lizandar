@@ -19,6 +19,7 @@
           :color="store.calendarColor(event.calendar)"
           :time-start="event.timeStart" 
           :time-end="event.timeEnd"
+          :clicked="() => 'inject a lambda here'"
           class="cell-container"/>
       </div>
   </button>

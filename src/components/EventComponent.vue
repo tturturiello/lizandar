@@ -1,8 +1,9 @@
 <template>
-    <button @click="() => $emit('eventClicked', this)" 
+    <!-- <button @click="() => $emit('eventClicked', this)"  -->
+    <button @click="clicked()" 
         class="menu w-56 text-secondary-content p-0.1 rounded-box text-[#44403C]"
         v-bind:style="{ 'background-color': color }"
-        >{{ title }}
+        >{{ title.slice(0, 24) }}...
     </button>
 
 </template>
@@ -18,5 +19,6 @@ const props = defineProps({
     timeStart: String, 
     timeEnd: String,
     color: String,
+    clicked: Function,
 })
 </script>
