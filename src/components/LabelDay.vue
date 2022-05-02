@@ -1,18 +1,25 @@
 <template>
 <span class="disposed">
-    <div class="menu w-8 p-0.1 rounded-box">{{ label }}</div>
-    <div class="menu w-8 p-0.1 rounded-box">{{ dayWeek }}</div>
-    <div class="menu w-8 p-0.1 rounded-box"></div>
+    <span v-if="isToday">
+        <div class="badge badge-primary">{{ label }}</div>
+        <div class="menu w-8 p-0.1 rounded-box">{{ dayWeek }}</div>
+    </span>
+    <span v-else>
+        <div class="menu w-8 p-0.1 rounded-box">{{ label }}</div>
+        <div class="menu w-8 p-0.1 rounded-box">{{ dayWeek }}</div>
+    </span>
 </span>
 </template>
 
-<script>
-export default {
-    props: {
-        dayWeek: String,
-        label: String, 
-    }
+<script setup>
+if(props.isToday) {
+    console.log(this)
 }
+const props = defineProps({
+    dayWeek: String,
+    label: String, 
+    isToday: Boolean,
+})
 </script>
 
 <style scoped>

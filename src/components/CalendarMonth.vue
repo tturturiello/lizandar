@@ -18,7 +18,6 @@
       <CalendarMonthDayItem 
           v-on:dayclicked="() => ''"
           v-for="day in days" 
-          :events="events" 
           :key="day.date" 
           :day="day" 
           :is-today="day.date === today">
@@ -46,10 +45,6 @@ dayjs.extend(weekOfYear);
 let events = reactive(new Map())
 const eventsStore = ref(useEventsStore)
 
-onMounted(() => {
-  fetchEvents()
-})
-
 let selectedDate = reactive ({
   value: dayjs()
 });
@@ -63,26 +58,6 @@ const days = computed(() => {
       ...nextMonthDays()
     ];
 })
-
-function fetchEvents() {
-  events.set("2022-04-29", [
-    {id: "ssasf", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"},
-    {id: "ssasf1", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"},
-    ]);
-
-  events.set("2022-04-30", [
-    {id: "ssasf1", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"},
-    {id: "ssasf2", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"},
-    ]);
-  //events.set("2022-04-30", [{id: "asdf", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"}]);
-  //events.get("2022-04-30").push({id: "asdfasl", title: "title", description: "desc", date: "29.04.2022", timeStart: "11:23", timeEnd: "13:23", calendar: "Sprot"})
-
-  const URL = "https://supsi-events.herokuapp.com/bff/events"
-  //fetch(URL)
-  // .then(response => response.json())
-  // .then(json => json.forEach(e => events.set(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`, e)))
-  // .catch(err => console.log(`Error fetching events: \r\n ${err}`))
-}
 
 function month() {
   return Number(selectedDate.value.format("M"));

@@ -9,7 +9,8 @@
   >
       <div>
         <LabelDay 
-          :label="label()"/>
+          :label="label()"
+          :is-today="isToday"/>
       </div>
       <div v-for="event in store.events.get(day.date)" :key="event.key">
         <EventComponent 
@@ -37,17 +38,17 @@ const props = defineProps({
   day: {
       type: Object,
       required: true
-    },
+  },
 
-    isCurrentMonth: {
-      type: Boolean,
-      default: false
-    },
+  isCurrentMonth: {
+    type: Boolean,
+    default: false
+  },
 
-    isToday: {
-      type: Boolean,
-      default: false
-    }
+  isToday: {
+    type: Boolean,
+    default: false
+  }
 });
 
 function label() {

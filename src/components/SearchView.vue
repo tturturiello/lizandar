@@ -9,8 +9,11 @@
         </button>
     </div>
   </div>
-    <div class="navbar-center text-white text-4xl text-white ">
+    <div class="navbar-center text-white text-4xl text-white w-96">
         <input type="text" placeholder="Search..." class="input w-full input-bordered max-w-xs w-full to-text-secondary-content">
     </div>
 </div>
 </template>
+
+<style scoped>
+</style>
