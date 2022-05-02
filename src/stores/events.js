@@ -10,8 +10,11 @@ export const useEventsStore = defineStore('events', {
     find(str) {
       return [...this.events.values()].flatMap(e => e).filter(e => e.title.includes(str) || e.description.includes(str));
     },
+    addEvent(event) {
+      this.events.get(event.date).push(event)
+    },
     setEvents(events) {
       this.events = events
-    }
+    }, 
   }
 })

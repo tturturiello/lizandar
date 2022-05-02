@@ -53,6 +53,8 @@ function fetchFrom(URL) {
       array.forEach(e => map.set(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`, []))
       array.forEach(e => map.get(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`).push(e))
       eventsStore.$patch({events: map})
+
+      console.log(map)
     })
     .catch(err => console.log(`Error fetching events. \r\n ${err}`))
 

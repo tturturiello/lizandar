@@ -15,6 +15,7 @@
       <div v-for="event in store.events.get(day.date)" :key="event.key">
         <EventComponent 
           :title="event.title" 
+          :category="event.calendar"
           :time-start="event.timeStart" 
           :time-end="event.timeEnd"
           class="cell-container"/>
