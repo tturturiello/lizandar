@@ -1,7 +1,8 @@
 <template>
 <span class="disposed">
     <span v-if="isToday">
-        <div class="badge badge-outline badge-primary">{{ label }}</div>
+        <!-- <div class="badge badge-outline badge-primary">{{ label }}</div> -->
+        <div class="badge badge-primary">{{ label }}</div>
         <div class="menu w-8 p-0.1 rounded-box">{{ dayWeek }}</div>
     </span>
     <span v-else>

@@ -16,7 +16,7 @@
     <ol class="days-grid">
           <!-- class="drawer-content" -->
       <CalendarMonthDayItem 
-          v-on:dayclicked="() => ''"
+          v-on:dayclicked="() => $emit('dayclicked')"
           v-for="day in days" 
           :key="day.date" 
           :day="day" 

@@ -19,7 +19,7 @@
           :color="store.calendarColor(event.calendar)"
           :time-start="event.timeStart" 
           :time-end="event.timeEnd"
-          :clicked="() => 'inject a lambda here'"
+          :clicked="onEventClicked"
           class="cell-container"/>
       </div>
   </button>
@@ -52,6 +52,10 @@ const props = defineProps({
 
 function label() {
   return dayjs(props.day.date).format("D");
+}
+
+function onEventClicked() {
+  console.log('this is an injected functionality')
 }
 
 </script>
