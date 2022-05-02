@@ -37,24 +37,22 @@ export const useEventsStore = defineStore('events', {
         this.events.get(key).push(event)
       }
     },
+    addCalendar(calendar) {
+        console.log(calendar.calendarName)
+        if([...this.calendars.filter(c => c.calendarName === calendar.calendar)].length <= 0) {
+          if(!calendar.color) {
+            calendar.color = hashColoring(calendar.calendarName)
+          }
+          this.calendars.push({calendarName: calendar.calendarName, color: calendar.color, enabled: true})
+        }
+    },
     setEvents(events) {
       this.events = events
     }, 
     calendarColor(calendar) {
       return ([...this.calendars.filter(c => c.calendarName === calendar).map(c => c.color)][0])
     },
-    //disableCalendar(calendarName) {
-    //  if(!this.isCalendarEnabled(calendarName) || this.disableCalendar.length <= 0) {
-    //    this.disabledCalendars.push(calendarName)
-    //  }
-    //},
-    //enableCalendar(calendarName) {
-    //  if(this.isCalendarEnabled(calendarName)) {
-    //    this.disabledCalendars = [...this.disabledCalendars.filter(c => c !== calendarName)]
-    //  }
-    //},
     isCalendarEnabled(calendarName) {
-      // return (this.disabledCalendars.indexOf(calendarName) <= -1)
       return ([...this.calendars.filter(c => c.calendarName === calendarName)][0]).enabled
     },
     toggleCalendar(calendarName) {

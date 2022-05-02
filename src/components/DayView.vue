@@ -11,35 +11,6 @@
     </div>
 </div>
 
-<!-- <div class="overflow-x-auto">
-  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="overflow-hidden">
-        <table class="min-w-full">
-          <thead class="bg-dark text-white">
-            <tr>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Title</th>
-              <th>Descritpion</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr v-for="event in store.find(searchQuery)" :key="event.key" 
-                class="active bg-gray-100 border-b">
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ event.date }}</td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ `${event.timeStart}-${event.timeEnd}` }}</td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ event.title }}</td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ event.description }}</td>
-              </tr>
-          </tbody>
-
-        </table>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 </template>
 
 <script setup>
