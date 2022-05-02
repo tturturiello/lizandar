@@ -4,8 +4,8 @@
 
 <script setup>
 const props = defineProps({
-        title: String, 
-        timeStart: String, 
-        timeEnd: String
+    title: String, 
+    timeStart: String, 
+    timeEnd: String
 })
 </script>

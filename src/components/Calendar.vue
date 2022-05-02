@@ -55,6 +55,7 @@ function fetchFrom(URL) {
       eventsStore.$patch({events: map})
     })
     .catch(err => console.log(`Error fetching events. \r\n ${err}`))
+
 }
 
 </script>

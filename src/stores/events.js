@@ -7,8 +7,8 @@ export const useEventsStore = defineStore('events', {
     }
   },
   actions: {        
-    findByTitle(title) {
-        // return this.events.values().map(eventsList => eventsList.filter(e => e.title == title))
+    find(str) {
+      return [...this.events.values()].flatMap(e => e).filter(e => e.title.includes(str) || e.description.includes(str));
     },
     setEvents(events) {
       this.events = events

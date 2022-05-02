@@ -27,9 +27,6 @@ import dayjs from "dayjs";
 import EventComponent from "./EventComponent.vue";
 import LabelDay from "./LabelDay.vue";
 import { useEventsStore } from "../stores/events";
-import { ref } from 'vue'
-
-// const eventsStore = ref(useEventsStore)
 
 const store = useEventsStore();
 
@@ -54,10 +51,6 @@ const props = defineProps({
 function label() {
   return dayjs(props.day.date).format("D");
 }
-
-// function day() {
-//   return dayjs(props.day.date).format("D");
-// }
 
 </script>
 
