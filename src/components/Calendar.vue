@@ -12,10 +12,6 @@
         <label for="menu-drawer" tabindex="0" class="btn btn-ghost btn-circle">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
         </label>
-        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-            <li><button @click="() => viewMode ='week'">Week</button></li>
-            <li><button @click="() => viewMode ='month'">Month</button></li>
-        </ul>
       </div>
     </div>
     <div class="navbar-center text-white text-4xl">Calendar</div>
@@ -40,6 +36,20 @@
       <!-- Sidebar content here -->
       <li><button @click="() => viewMode ='week'">Week</button></li>
       <li><button @click="() => viewMode ='month'">Month</button></li>
+      <span v-for="calendar in eventsStore.calendars" :key="calendar">
+        <div class="form-control">
+          <label class="label cursor-pointer">
+            <span class="label-text">{{ calendar.calendarName }}</span>
+            <input 
+              @click="eventsStore.toggleCalendar(calendar.calendarName)"
+              type="checkbox" 
+              checked
+              class="toggle" 
+              v-bind:style="{ 'background-color': calendar.color }"
+            >
+          </label>
+        </div>
+      </span>
       
     </ul>
   </div>
@@ -67,16 +77,21 @@ onMounted(() => {
   fetchFrom(URL)
 })
 
+// function toggleCalendars(calendarName) {
+//   console.log('QUI', calendarName)
+//   if(eventsStore.isCalendarEnabled(calendarName)) {
+//     eventsStore.enableCalendar(calendarName)
+//   } else {
+//     eventsStore.disableCalendar(calendarName)
+//   }
+// }
+
 function fetchFrom(URL) {
   fetch(URL)
    .then(response => response.json())
    .then(array => {
-      const map = new Map();
-      array.forEach(e => map.set(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`, []))
-      array.forEach(e => map.get(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`).push(e))
-      eventsStore.$patch({events: map})
-
-      console.log(map)
+      array.forEach(e => eventsStore
+        .addEvent(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`, e))
     })
     .catch(err => console.log(`Error fetching events. \r\n ${err}`))
 

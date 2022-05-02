@@ -13,9 +13,10 @@
           :is-today="isToday"/>
       </div>
       <div v-for="event in store.events.get(day.date)" :key="event.key">
-        <EventComponent 
+        <EventComponent v-if="store.isCalendarEnabled(event.calendar)" 
           :title="event.title" 
           :category="event.calendar"
+          :color="store.calendarColor(event.calendar)"
           :time-start="event.timeStart" 
           :time-end="event.timeEnd"
           class="cell-container"/>
@@ -30,7 +31,6 @@ import LabelDay from "./LabelDay.vue";
 import { useEventsStore } from "../stores/events";
 
 const store = useEventsStore();
-
 
 const props = defineProps({
   day: {
