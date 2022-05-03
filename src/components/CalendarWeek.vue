@@ -14,9 +14,6 @@
     </div>
     <CalendarWeekdays/>
     <ol class="days-grid">
-    <!-- <div v-for="week in 4" :key="week"> -->
-        
-        <!-- v-for="day in days"  -->
     <CalendarWeekDayItem 
         v-for="day in daysPerWeek[weekIndex()]" 
         :events="events" 
@@ -24,7 +21,6 @@
         :day="day" 
         :is-today="day.date === today">
     </CalendarWeekDayItem>
-    <!-- </div> -->
     </ol>
   </div>
 </template>
@@ -50,7 +46,6 @@ const eventsStore = ref(useEventsStore)
 
 onMounted(() => {
   fetchEvents()
-  // events = eventsStore.value()
 })
 
 let selectedDate = reactive ({
@@ -59,17 +54,7 @@ let selectedDate = reactive ({
 
 let today = ref( dayjs().format("YYYY-MM-DD") )
 
-// let weekIndex = ref(selectedDate.value.week() % 4)
-
-// console.log("WEEK", weekIndex)
-
-// const x = (() => {
-//     console.log("WEEK", selectedDate.value.week() % 4)
-//     console.log("DAYS", daysPerWeek[weekIndex()])
-// })
-
 const days = computed(() => {
-    // console.log("WEEK", selectedDate.value.week() % 4)
     console.log("DAYS", daysPerWeek[weekIndex()])
   return [
       ...currentMonthDays(),
@@ -161,21 +146,6 @@ function nextMonthDays() {
   });
 }
 
-// function weekDays() {
-//     const lastDayOfTheMonthWeekday = getWeekday(`${year()}-${month()}-${currentMonthDays().length}`);
-//     const nextMonth = dayjs(`${year()}-${month()}-01`).add(1, "month");
-//     const visibleNumberOfDaysFromNextMonth = lastDayOfTheMonthWeekday ? 7 - lastDayOfTheMonthWeekday : lastDayOfTheMonthWeekday;
-
-//     const lastDayOfTheWeekday = getWeekday(`${year()}-${month()}-${currentMonthDays().length}`);
-
-//     return [...Array(visibleNumberOfDaysFromNextMonth)].map((_, index) => {
-//       return {
-//         date: dayjs(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`).format("YYYY-MM-DD"),
-//         isCurrentMonth: false
-//       };
-//     }).filter();
-  // }
-
 
 function getWeekday(date) {
   return dayjs(date).weekday();
@@ -188,22 +158,6 @@ function selectDate(newSelectedDate) {
 function formatSelectedDate() {
   return selectedDate.value.format("DD MMMM YYYY")
 }
-
-//function incrementWeekIndex() {
-//    weekIndex = (weekIndex + 1) % 4
-//}
-//
-//function derementWeekIndex() {
-//    weekIndex = (weekIndex - 1) % 4
-//}
-
-/*{"id":"05f1c9b9-b385-4203-8ff8-8dfd1dd6561e",
-"title":"Id illo odit aspernatur.",
-"description":"Deleniti autem aut placeat fugiat sit voluptatum numquam. Consequuntur nihil repudiandae sit impedit est. Dolores dolorum consequatur sit error. Beatae sed pariatur natus dolore.",
-"date":"15.02.2022",
-"timeStart":"11:23",
-"timeEnd":"13:15",
-"calendar":"Sport"}*/
 
 </script>
 

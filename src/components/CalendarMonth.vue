@@ -127,14 +127,6 @@ function formatSelectedDate() {
   return selectedDate.value.format("MMMM YYYY")
 }
 
-/*{"id":"05f1c9b9-b385-4203-8ff8-8dfd1dd6561e",
-"title":"Id illo odit aspernatur.",
-"description":"Deleniti autem aut placeat fugiat sit voluptatum numquam. Consequuntur nihil repudiandae sit impedit est. Dolores dolorum consequatur sit error. Beatae sed pariatur natus dolore.",
-"date":"15.02.2022",
-"timeStart":"11:23",
-"timeEnd":"13:15",
-"calendar":"Sport"}*/
-
 </script>
 
 <style>
