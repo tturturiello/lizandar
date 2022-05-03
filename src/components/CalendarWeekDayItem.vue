@@ -1,53 +1,61 @@
 <template>
-  <li
-    class="calendar-day"
+  <button
+    @click="() => $emit('dayclicked', this)"
+    class="calendar-day cell-container"
     :class="{
       'calendar-day--not-current': !day.isCurrentMonth,
       'calendar-day--today': isToday
     }"
   >
-    <span>
       <div>
         <LabelDay 
-          :label="label()"/>
+          :label="label()"
+          :is-today="isToday"/>
       </div>
-      <div v-for="event in events.get(day.date)" :key="event.key">
-        <EventComponent 
+      <div v-for="event in store.events.get(day.date)" :key="event.key">
+        <EventComponent v-if="store.isCalendarEnabled(event.calendar)" 
           :title="event.title" 
+          :category="event.calendar"
+          :color="store.calendarColor(event.calendar)"
           :time-start="event.timeStart" 
-          :time-end="event.timeEnd"/>
+          :time-end="event.timeEnd"
+          :clicked="onEventClicked"
+          class="cell-container"/>
       </div>
-    </span>
-  </li>
+  </button>
 </template>
 
 <script setup>
 import dayjs from "dayjs";
 import EventComponent from "./EventComponent.vue";
 import LabelDay from "./LabelDay.vue";
+import { useEventsStore } from "../stores/events";
+
+const store = useEventsStore();
 
 const props = defineProps({
-  events: {
-    type: Map
-  },
   day: {
       type: Object,
       required: true
-    },
+  },
 
-    isCurrentMonth: {
-      type: Boolean,
-      default: false
-    },
+  isCurrentMonth: {
+    type: Boolean,
+    default: false
+  },
 
-    isToday: {
-      type: Boolean,
-      default: false
-    }
+  isToday: {
+    type: Boolean,
+    default: false
+  }
 });
 
 function label() {
   return dayjs(props.day.date).format("D");
+}
+
+function onEventClicked() {
+  console.log('this is an injected functionality')
 }
 
 </script>
@@ -56,7 +64,7 @@ function label() {
 <style scoped>
 .calendar-day {
   position: relative;
-  min-height: 50px;
+  min-height: 100px;
   font-size: 16px;
   background-color: #fff;
   color: var(--grey-800);
@@ -66,6 +74,11 @@ function label() {
 .calendar-day--not-current {
   background-color: var(--grey-100);
   color: var(--grey-300);
+}
+
+.cell-container {
+  display: flex;
+  flex-direction: column;
 }
 
 </style>

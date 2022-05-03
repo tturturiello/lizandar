@@ -1,8 +1,4 @@
 <template>
-
-<!-- <DayView v-on:backevent="isDayViewEnabled=false" v-if="isDayViewEnabled" /> -->
-
-<!-- <span v-else> -->
 <span>
 <span v-if="!isSearchEnabled">
   <div class="drawer">
@@ -57,7 +53,6 @@
         <NewEvent 
           v-on:event-created="onEventCreated"
           v-if="viewMode == 'new event'"/>
-          <!-- v-on:event-created="() => eventsStore.addEvent($event.date, $event)" -->
     </span>
 
 
