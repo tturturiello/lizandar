@@ -45,6 +45,7 @@
                 description: description,
                 date: getDate(),
                 calendarName: getCalendar(),
+                calendar: getCalendar(),
                 color: store.calendarColor(getCalendar()),
                 timeStart: getStart(),
                 timeEnd: getEnd()});
@@ -56,7 +57,7 @@
 
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useEventsStore } from "../stores/events";
 
 const store = useEventsStore()
@@ -68,19 +69,23 @@ const timeStart = ref(null)
 const timeEnd = ref(null)
 
 function getStart() {
-    return timeStart.value
+  return timeStart.value
 }
 
 function getEnd() {
-    return timeStart.value
+  return timeStart.value
 }
 
 function getCalendar() {
-    return calendar
+  return calendar
 }
 
 function getDate() {
-    return date.value
+  return date.value
+}
+
+function getDescription() {
+  return description
 }
 
 function onCalendarSelection(event) {
