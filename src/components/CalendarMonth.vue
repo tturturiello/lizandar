@@ -14,13 +14,13 @@
     </div>
     <CalendarWeekdays/>
     <ol class="days-grid">
-      <CalendarMonthDayItem 
+      <CalendarCell
           v-on:dayclicked="() => $emit('dayclicked')"
           v-for="day in days" 
           :key="day.date" 
           :day="day" 
           :is-today="day.date === today">
-      </CalendarMonthDayItem>
+      </CalendarCell>
     </ol>
   </div>
 </template>
@@ -33,10 +33,10 @@ import weekOfYear from "dayjs/plugin/weekOfYear";
 import CalendarDateIndicator from "./CalendarDateIndicator.vue"
 import CalendarDateSelector from "./CalendarDateSelector.vue"
 import CalendarWeekdays from './CalendarWeekdays.vue';
-import CalendarMonthDayItem from './CalendarMonthDayItem.vue';
 import { data } from 'browserslist';
 import EventComponent from './EventComponent.vue';
 import { useEventsStore } from "../stores/events";
+import CalendarCell from './CalendarCell.vue';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);

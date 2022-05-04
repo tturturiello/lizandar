@@ -28,7 +28,7 @@ export const useEventsStore = defineStore('events', {
         .flatMap(e => e)
         .filter(e => e.title.toLowerCase().includes(str) || e.description.toLowerCase().includes(str));
     },
-    addEvent(key, event) {
+    addEventWithKey(key, event) {
       if(!this.events.get(key)) {
         this.events.set(key, [])
         if([...this.calendars.filter(c => c.calendarName === event.calendar)].length <= 0)
@@ -36,6 +36,10 @@ export const useEventsStore = defineStore('events', {
       } else {
         this.events.get(key).push(event)
       }
+    },
+    addEvent(event) {
+      let key = event.date
+      this.addEventWithKey(key, event)
     },
     addCalendar(calendar) {
         console.log(calendar.calendarName)
@@ -50,10 +54,12 @@ export const useEventsStore = defineStore('events', {
       this.events = events
     }, 
     calendarColor(calendar) {
-      return ([...this.calendars.filter(c => c.calendarName === calendar).map(c => c.color)][0])
+      let color = [...this.calendars.filter(c => c.calendarName === calendar).map(c => c.color)][0]
+      if(!color) color = hashColoring(calendar.calendarName)
+      return color
     },
     isCalendarEnabled(calendarName) {
-      return ([...this.calendars.filter(c => c.calendarName === calendarName)][0]).enabled
+      return ([...this.calendars].find(c => c.calendarName === calendarName)).enabled
     },
     toggleCalendar(calendarName) {
       let calendar = [...this.calendars.filter(c => c.calendarName === calendarName)][0]

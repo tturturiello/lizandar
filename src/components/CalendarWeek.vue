@@ -14,12 +14,12 @@
     </div>
     <CalendarWeekdays/>
     <ol class="days-grid">
-      <CalendarWeekDayItem 
+      <CalendarCell
         v-for="dayIndex in 7" :key="dayIndex" 
         :events="events" 
         :day="currentMonthDays()[dayIndex + 7*weekIndex()]" 
         :is-today="currentMonthDays()[dayIndex + 7*weekIndex()].date === today">
-      </CalendarWeekDayItem>
+      </CalendarCell>
     </ol>
   </div>
 </template>
@@ -32,11 +32,10 @@ import weekOfYear from "dayjs/plugin/weekOfYear";
 import CalendarDateIndicator from "./CalendarDateIndicator.vue"
 import CalendarDateSelector from "./CalendarDateSelector.vue"
 import CalendarWeekdays from './CalendarWeekdays.vue';
-import CalendarMonthDayItem from './CalendarMonthDayItem.vue';
+import CalendarCell from './CalendarCell.vue';
 import { data } from 'browserslist';
 import EventComponent from './EventComponent.vue';
 import { useEventsStore } from "../stores/events";
-import CalendarWeekDayItem from './CalendarWeekDayItem.vue';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);

@@ -43,16 +43,19 @@
     <span class="h-full">
         <CalendarWeek 
           v-if="viewMode == 'week'"/>
+        <span v-else/>
         <CalendarMonth 
           v-on:dayclicked="() => isDayViewEnabled = true"
           v-if="viewMode == 'month'"/>
+        <span v-else/>
         <NewCalendar 
           v-on:calendar-created="eventsStore.addCalendar"
           v-if="viewMode == 'new calendar'"/>
-
+        <span v-else/>
         <NewEvent 
-          v-on:event-created="onEventCreated"
+          v-on:event-created="eventsStore.addEvent"
           v-if="viewMode == 'new event'"/>
+        <span v-else/>
     </span>
 
 
@@ -92,12 +95,11 @@
 </template>
 
 <script setup>
-import CalendarMonth from "./CalendarMonth.vue";
-import CalendarWeek from "./CalendarWeek.vue";
 import { onMounted, ref, reactive } from 'vue'
 import { useEventsStore } from "../stores/events";
+import CalendarMonth from "./CalendarMonth.vue";
+import CalendarWeek from "./CalendarWeek.vue";
 import SearchView from "./SearchView.vue";
-import DayView from "./DayView.vue";
 import NewCalendar from "./NewCalendar.vue";
 import NewEvent from "./NewEvent.vue";
 
@@ -112,7 +114,7 @@ onMounted(() => {
 })
 
 function onEventCreated(event) {
-  eventsStore.addEvent(event.date, event)
+  eventsStore.addEvent(event)
   viewMode = 'month'
 }
 
@@ -121,7 +123,7 @@ function fetchFrom(URL) {
    .then(response => response.json())
    .then(array => {
       array.forEach(e => eventsStore
-        .addEvent(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`, e))
+        .addEventWithKey(`${e.date.split('.')[2]}-${e.date.split('.')[1]}-${e.date.split('.')[0]}`, e))
     })
     .catch(err => console.log(`Error fetching events. \r\n ${err}`))
 }
