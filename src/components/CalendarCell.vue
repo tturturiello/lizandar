@@ -8,9 +8,16 @@
     }"
   >
       <div>
-        <LabelDay 
-          :label="label()"
-          :is-today="isToday"/>
+        <span class="disposed">
+            <span v-if="isToday">
+                <div class="badge badge-primary">{{ label() }}</div>
+                <div class="menu w-8 p-0.1 rounded-box">{{ dayWeek }}</div>
+            </span>
+            <span v-else>
+                <div class="menu w-8 p-0.1 rounded-box">{{ label() }}</div>
+                <div class="menu w-8 p-0.1 rounded-box">{{ dayWeek }}</div>
+            </span>
+        </span>
       </div>
       <div v-for="event in store.events.get(day.date)" :key="event.key">
         <EventComponent v-if="store.isCalendarEnabled(event.calendar)" 
@@ -28,7 +35,6 @@
 <script setup>
 import dayjs from "dayjs";
 import EventComponent from "./EventComponent.vue";
-import LabelDay from "./LabelDay.vue";
 import { useEventsStore } from "../stores/events";
 
 const store = useEventsStore();
@@ -79,6 +85,13 @@ function onEventClicked() {
 .cell-container {
   display: flex;
   flex-direction: column;
+}
+
+.disposed {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
 }
 
 </style>
