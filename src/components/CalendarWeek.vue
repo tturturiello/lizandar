@@ -14,7 +14,6 @@
     </div>
     <CalendarWeekdays/>
     <ol class="days-grid">
-        <!-- v-for="day in daysPerWeek[weekIndex()]"  -->
       <CalendarWeekDayItem 
         v-for="dayIndex in 7" :key="dayIndex" 
         :events="events" 
