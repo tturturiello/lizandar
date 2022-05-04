@@ -55,7 +55,7 @@ function label() {
 }
 
 function onEventClicked() {
-  console.log('this is an injected functionality')
+  alert('this is an injected functionality')
 }
 
 </script>
