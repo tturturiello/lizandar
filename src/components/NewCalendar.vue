@@ -9,7 +9,9 @@
 
 
         <span>
-            <button @click="$emit('calendar-created', { calendarName: name, color: '', enabled: true})" class="form-control btn btn-success">Create</button>
+            <button @click="$emit('calendar-created', { calendarName: name, color: '', enabled: true})" class="form-control btn btn-success">
+                Create
+            </button>
         </span>
     </div>
 </template>

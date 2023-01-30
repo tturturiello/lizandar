@@ -31,7 +31,7 @@
 
         </div>
       </div>
-      <div class="navbar-center text-white text-4xl">Calendar</div>
+      <button @click="() => viewMode='month'" class="navbar-center text-white text-4xl">Calendar</button>
       <div class="navbar-end">
         <button @click="() => isSearchEnabled=true" class="btn btn-ghost btn-circle">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
@@ -41,19 +41,20 @@
 
     <!-- BODY -->
     <span class="h-full">
-        <CalendarWeek 
-          v-if="viewMode == 'week'"/>
-        <span v-else/>
+        <!-- <CalendarWeek v-if="viewMode == 'week'"/> -->
+        <!-- <span v-else/> -->
         <CalendarMonth 
           v-on:dayclicked="() => isDayViewEnabled = true"
           v-if="viewMode == 'month'"/>
         <span v-else/>
+          <!-- v-on:calendar-created="eventsStore.addCalendar" -->
         <NewCalendar 
-          v-on:calendar-created="eventsStore.addCalendar"
+          v-on:calendar-created="onCalendarCreated"
           v-if="viewMode == 'new calendar'"/>
         <span v-else/>
+          <!-- v-on:event-created="eventsStore.addEvent" -->
         <NewEvent 
-          v-on:event-created="eventsStore.addEvent"
+          v-on:event-created="onEventCreated"
           v-if="viewMode == 'new event'"/>
         <span v-else/>
     </span>
@@ -64,10 +65,10 @@
       <label for="menu-drawer" class="drawer-overlay"></label>
       <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
         <!-- Sidebar content here -->
-        <li><button @click="() => viewMode ='week'">Week</button></li>
+        <!-- <li><button @click="() => viewMode ='week'">Week</button></li> -->
         <li><button @click="() => viewMode ='month'">Month</button></li>
 
-        Calendars:
+        My Calendars:
         <span v-for="calendar in eventsStore.calendars" :key="calendar">
           <div class="form-control">
             <label class="label cursor-pointer">
@@ -108,15 +109,21 @@ let viewMode = ref('month')
 const isSearchEnabled = ref(false)
 const isDayViewEnabled = ref(false)
 
-onMounted(() => {
-  const URL = "https://supsi-events.herokuapp.com/bff/events"
-  fetchFrom(URL)
-})
+const onCalendarCreated = (event) => {
+  viewMode.value = 'month';
+  eventsStore.addCalendar(event);
+};
 
-function onEventCreated(event) {
+const onEventCreated = (event) => {
+  viewMode.value = 'month'
   eventsStore.addEvent(event)
-  viewMode = 'month'
 }
+
+
+onMounted(() => {
+  const URL = "<insert here a valid url with the events in json format>"
+  // fetchFrom(URL) // uncomment if there is a valid url
+})
 
 function fetchFrom(URL) {
   fetch(URL)
@@ -127,7 +134,6 @@ function fetchFrom(URL) {
     })
     .catch(err => console.log(`Error fetching events. \r\n ${err}`))
 }
-
 </script>
 
 <style scoped>
